@@ -9,3 +9,9 @@ artifacts:
     joda: joda-time:joda-time:jar:1.6
     scalalib: org.scala-lang:scala-library:jar:2.8.0
     scalajcollection: org.scalaj:scalaj-collection_2.8.0:jar:1.0
+    scalaspecs: org.scala-tools.testing:specs_2.8.0:jar:1.6.5
+    jmock2: org.jmock:jmock:jar:2.4.0
+    hamcrest: org.hamcrest:hamcrest-all:jar:1.1
+    cglib: cglib:cglib:jar:2.1_3
+    asm: asm:asm:jar:1.5.3
+    objenesis: org.objenesis:objenesis:jar:1.1

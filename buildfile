@@ -30,7 +30,7 @@ define "gh" do
   compile.options.other = '-unchecked'
 
   # compile against maven artifacts
-  compile.with artifacts(:sqlite, :pircbot, :jdom, :tagsoup, :jaxen, :jchardet, :commonsio, :joda, :scalalib, :scalajcollection)
+  compile.with artifacts(:sqlite, :pircbot, :jdom, :tagsoup, :jaxen, :jchardet, :commonsio, :joda, :scalalib, :scalajcollection, :scalaspecs, :jmock2, :hamcrest, :cglib, :asm, :objenesis)
 
 
   ############################################################################
@@ -38,5 +38,5 @@ define "gh" do
   ############################################################################
   # package against maven artifacts
   package(:jar).with :manifest => {"Main-Class" => "no.kvikshaug.gh.Grouphug",
-                                   "Class-Path" => artifacts(:sqlite, :pircbot, :jdom, :tagsoup, :jaxen, :jchardet, :commonsio, :joda, :scalalib, :scalajcollection).each(&:invoke).map(&:name).join(" ")  }
+                                   "Class-Path" => artifacts(:sqlite, :pircbot, :jdom, :tagsoup, :jaxen, :jchardet, :commonsio, :joda, :scalalib, :scalajcollection, :scalaspecs, :jmock2, :hamcrest, :cglib, :asm, :objenesis).each(&:invoke).map(&:name).join(" ")  }
 end
