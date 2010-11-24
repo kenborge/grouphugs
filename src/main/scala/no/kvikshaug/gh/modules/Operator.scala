@@ -27,13 +27,17 @@ class Operator(handler: ModuleHandler) extends JoinListener with NickChangeListe
 
   println("Operator module loaded.")
 
+  def shouldOp(channel: String, nick: String) = {
+    channels.get(channel).exists(_ == nick)
+  }
+
   def onJoin(channel: String, sender: String, login: String, hostname: String) {
     // first check if it's me who's joining
     if(sender.equals(bot.getNick())) {
         return
     }
 
-    opIfInList(sender, login, hostname)
+    //opIfInList(sender, login, hostname)
   }
 
   def onNickChange(oldNick: String, login: String, hostname: String, newNick: String) {
@@ -46,7 +50,7 @@ class Operator(handler: ModuleHandler) extends JoinListener with NickChangeListe
         return
     }
 
-    opIfInList(newNick, login, hostname)
+    //opIfInList(newNick, login, hostname)
   }
 
 }
