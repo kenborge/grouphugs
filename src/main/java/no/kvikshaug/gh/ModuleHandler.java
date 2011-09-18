@@ -80,6 +80,7 @@ public class ModuleHandler {
         new Eyebleach(this);
         new Remember(this);
         new JoinMessage(this);
+        new RssNews(this);
 
         System.out.println();
         System.out.println(helpers.size() + " help responses registered");
