@@ -75,7 +75,7 @@ public class RssNews {
     			for (Iterator iter = feed.getEntries().iterator(); iter.hasNext();) {
     				SyndEntry entry = (SyndEntry)iter.next();
     				if(new DateTime(entry.getPublishedDate()).isAfter(lastTime)) {
-    					System.out.println("piss");
+    					foundNew = true;
     					bot.msg(channel, "Star Wars Norge Nyheter" + ": " + entry.getTitle() +  " >> " + entry.getLink());
     				}
     			}
