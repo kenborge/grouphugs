@@ -37,7 +37,12 @@ public class RssNews {
 
     public RssNews(ModuleHandler handler) {
     	bot = Grouphug.getInstance();
-    	lastTime = new DateTime("Fri, 16 Sep 2011 23:00:05 GMT");
+    	try {
+			feedUrl = new URL("http://www.starwarsnorge.com/index.php?action=.xml;type=rss2;sa=news;board=29;limit=20");
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+    	lastTime = new DateTime();
 		
         Timer timer = new Timer();
         Task task = new Task("#starwarsnorge");
@@ -61,7 +66,7 @@ public class RssNews {
     				SyndEntry entry = (SyndEntry)iter.next();
     				if(new DateTime(entry.getPublishedDate()).isAfter(lastTime)) {
     					foundNew = true;
-    					bot.msg(channel, "Star Wars Norge Nyheter" + ": " + entry.getTitle() +  " >> " + entry.getLink());
+    					bot.msg(channel, "Star Wars Norge Nyheter" + " >> " + entry.getTitle() +  " >> " + entry.getLink());
     				}
     			}
     			if(foundNew)
