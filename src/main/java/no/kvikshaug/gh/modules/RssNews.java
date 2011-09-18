@@ -37,26 +37,11 @@ public class RssNews {
 
     public RssNews(ModuleHandler handler) {
     	bot = Grouphug.getInstance();
-    	lastTime = new DateTime();
-    	
-    	SyndFeedInput input = new SyndFeedInput();
-		SyndFeed feed;
-		try {
-			feed = input.build(new XmlReader(feedUrl));
-			lastTime = new DateTime(((SyndEntry)feed.getEntries().get(1)).getPublishedDate());
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+    	lastTime = new DateTime("Fri, 16 Sep 2011 23:00:05 GMT");
 		
-    	try {
-			feedUrl = new URL("http://www.starwarsnorge.com/index.php?action=.xml;type=rss2;sa=news;board=29;limit=20");
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
         Timer timer = new Timer();
         Task task = new Task("#starwarsnorge");
-        timer.schedule(task, new Period(0, 1, 0, 0).getMillis(), new Period(0, 5, 0, 0).getMillis());
+        timer.schedule(task, 1*60*60, 5*60*60);
     }
 
     private class Task extends TimerTask {
@@ -64,10 +49,10 @@ public class RssNews {
 
         private Task(String channel) {
             this.channel = channel;
-            new Thread(this).start();
         }
 
         public void run() {
+        	System.out.println("RssNews checking for new entries");
             try {
     			SyndFeedInput input = new SyndFeedInput();
     			SyndFeed feed = input.build(new XmlReader(feedUrl));
