@@ -13,4 +13,5 @@ CREATE TABLE vote_option_voters (id INTEGER PRIMARY KEY, optionId INTEGER, nick 
 CREATE TABLE vote_options (id INTEGER PRIMARY KEY, voteId INTEGER, text TEXT);
 CREATE TABLE votes (id INTEGER PRIMARY KEY, creator TEXT, text TEXT, multi BOOLEAN);
 CREATE TABLE words (id INTEGER PRIMARY KEY, lines NUMERIC, nick TEXT, since TEXT, words NUMERIC, channel TEXT);
+CREATE TABLE rss(id INTEGER PRIMARY KEY, tag TEXT, url TEXT, channel TEXT);
 
