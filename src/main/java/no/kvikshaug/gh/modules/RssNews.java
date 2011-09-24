@@ -193,8 +193,8 @@ public class RssNews implements TriggerListener {
 	private void getLastItemDate(RSSHolder rss) {
 		SyndFeed feed = getFeed(rss.url);
 		SyndEntry entry = (SyndEntry)feed.getEntries().get(0);
-		if(entry.getPublishedDate() != null ) rss.lastItemDate = new DateTime(entry.getPublishedDate());
-		else if(entry.getUpdatedDate() != null) rss.lastItemDate = new DateTime(entry.getUpdatedDate());
+		if(entry.getPublishedDate() != null ) rss.lastItemDate = new DateTime(entry.getPublishedDate()).minusDays(2);
+		else if(entry.getUpdatedDate() != null) rss.lastItemDate = new DateTime(entry.getUpdatedDate()).minusDays(2);
 		else throw new RuntimeException("Rss feed entries has no date");
 	}
 
@@ -205,6 +205,7 @@ public class RssNews implements TriggerListener {
 			for(RSSHolder rss : rssList) {
 				SyndFeedInput input = new SyndFeedInput();
 				SyndFeed feed = getFeed(rss.url);
+				if(feed == null) continue;
 				boolean foundNew = false;
 				for (Iterator iter = feed.getEntries().iterator(); iter.hasNext();) {
 					SyndEntry entry = (SyndEntry)iter.next();
