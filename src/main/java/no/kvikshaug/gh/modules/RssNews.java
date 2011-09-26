@@ -184,8 +184,6 @@ public class RssNews implements TriggerListener {
 			return input.build(new XmlReader(url));
 		} catch (Exception e) {
 			e.printStackTrace();
-			bot.msg("Kenji", "RSS News Error");
-			bot.msg("Kenji", e.toString());
 		}
 		return null;
 	}
@@ -205,7 +203,10 @@ public class RssNews implements TriggerListener {
 			for(RSSHolder rss : rssList) {
 				SyndFeedInput input = new SyndFeedInput();
 				SyndFeed feed = getFeed(rss.url);
-				if(feed == null) continue;
+				if(feed == null) {
+					bot.msg(rss.channel, "RSS News Error for " + rss.tag);
+					continue;
+				}
 				boolean foundNew = false;
 				for (Iterator iter = feed.getEntries().iterator(); iter.hasNext();) {
 					SyndEntry entry = (SyndEntry)iter.next();
