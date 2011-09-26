@@ -81,6 +81,7 @@ public class ModuleHandler {
         new Remember(this);
         new JoinMessage(this);
         new RssNews(this);
+        new GameRelease(this);
 
         System.out.println();
         System.out.println(helpers.size() + " help responses registered");
