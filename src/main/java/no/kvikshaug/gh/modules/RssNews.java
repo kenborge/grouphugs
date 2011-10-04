@@ -69,9 +69,6 @@ public class RssNews implements TriggerListener {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		//    	saveRss("Star Wars Norge", "http://www.starwarsnorge.com/index.php?action=.xml;type=rss2;sa=news;board=29;limit=20");
-		//		saveRss("Darth Hater", "http://darthhater.com/feed");
-		//		saveRss("Star Wars: The Old Republic", "http://www.swtor.com/feed/news/all");
 
 		handler.addTriggerListener(TRIGGER_ADD, this);
 		handler.addTriggerListener(TRIGGER_REMOVE, this);
@@ -204,9 +201,13 @@ public class RssNews implements TriggerListener {
 				SyndFeedInput input = new SyndFeedInput();
 				SyndFeed feed = getFeed(rss.url);
 				if(feed == null) {
-					bot.msg(rss.channel, "RSS News Error for " + rss.tag);
+					if(rss.errorCount == 5)
+						bot.msg(rss.channel, "RSS News " + rss.tag + " has failed 5 times in a row!");
+					else
+						rss.errorCount += 1;
 					continue;
 				}
+				if(rss.errorCount > 0) rss.errorCount = 0;
 				boolean foundNew = false;
 				for (Iterator iter = feed.getEntries().iterator(); iter.hasNext();) {
 					SyndEntry entry = (SyndEntry)iter.next();
@@ -237,5 +238,6 @@ public class RssNews implements TriggerListener {
 		public String tag;
 		public DateTime lastItemDate;
 		public String channel;
+		public int errorCount = 0;
 	}
 }
