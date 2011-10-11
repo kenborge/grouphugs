@@ -203,8 +203,11 @@ public class RssNews implements TriggerListener {
 				if(feed == null) {
 					if(rss.errorCount == 5)
 						bot.msg(rss.channel, "RSS News " + rss.tag + " has failed 5 times in a row!");
-					else
-						rss.errorCount += 1;
+					else if(rss.errorCount == 72) //6 hours
+						bot.msg(rss.channel, "RSS News " + rss.tag + " has failed the last 6h!");
+					else if(rss.errorCount % 288 == 0) //a day
+						bot.msg(rss.channel, "RSS News " + rss.tag + " has failed all day!");
+					rss.errorCount += 1;
 					continue;
 				}
 				if(rss.errorCount > 0) rss.errorCount = 0;
