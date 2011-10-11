@@ -187,6 +187,10 @@ public class RssNews implements TriggerListener {
 
 	private void getLastItemDate(RSSHolder rss) {
 		SyndFeed feed = getFeed(rss.url);
+		if(feed == null) {
+			System.out.println("Feed " + rss.tag + " is not available atm");
+			return;
+		}
 		SyndEntry entry = (SyndEntry)feed.getEntries().get(0);
 		if(entry.getPublishedDate() != null ) rss.lastItemDate = new DateTime(entry.getPublishedDate());
 		else if(entry.getUpdatedDate() != null) rss.lastItemDate = new DateTime(entry.getUpdatedDate());
@@ -211,6 +215,11 @@ public class RssNews implements TriggerListener {
 					continue;
 				}
 				if(rss.errorCount > 0) rss.errorCount = 0;
+				if(rss.lastItemDate == null) {
+					System.out.println("Rss news has null last date, so getting last item date");
+					getLastItemDate(rss);
+					continue;
+				}
 				boolean foundNew = false;
 				for (Iterator iter = feed.getEntries().iterator(); iter.hasNext();) {
 					SyndEntry entry = (SyndEntry)iter.next();
